@@ -1,4 +1,5 @@
-﻿using DataBase.Models;
+﻿using Database;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,8 @@ namespace DataBase.Repositories
 
         public Price DeletePrice(Price price)
         {
-            _context.Set<Price>().Remove(user);
-            return user;
+            _context.Set<Price>().Remove(price);
+            return price;
         }
     }
 }

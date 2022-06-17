@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Database.Models
 {
-    public class Models
+    public class Price
     {
         public int Id { get; set; } //identificador de precio ya que el precio normal del producto puede variar por año o temporada
 
