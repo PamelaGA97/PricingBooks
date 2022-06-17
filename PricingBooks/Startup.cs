@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,23 @@ namespace PricingBooks
             services.AddScoped<UnitOfWork>();
             services.AddDbContext<PriceDbContext>();
             services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                var groupName = "v1";
+
+                options.SwaggerDoc(groupName, new OpenApiInfo
+                {
+                    Title = $"Practice 3",
+                    Version = groupName,
+                    Description = "Foo API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Foo Company",
+                        Email = string.Empty,
+                        Url = new Uri("https://foo.com/"),
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +64,12 @@ namespace PricingBooks
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Practice 3 API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
