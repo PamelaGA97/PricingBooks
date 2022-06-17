@@ -8,7 +8,7 @@ using Logic.Managers;
 
 namespace PricingBooks.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("price-management")]
     [ApiController]
     public class PriceController : ControllerBase
     {
@@ -17,6 +17,9 @@ namespace PricingBooks.Controllers
         {
             _priceManager = priceManager;
         }
+
+        [HttpGet]
+        [Route("prices")]
         public IActionResult GetPrices()
         {
             return Ok(_priceManager.GetPrices());
