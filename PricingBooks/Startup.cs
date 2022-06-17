@@ -1,3 +1,5 @@
+using Database;
+using Logic.Managers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,9 @@ namespace PricingBooks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<PriceManager>();
+            services.AddScoped<UnitOfWork>();
+            services.AddDbContext<PriceDbContext>();
             services.AddControllers();
         }
 
