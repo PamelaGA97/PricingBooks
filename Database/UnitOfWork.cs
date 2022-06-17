@@ -22,7 +22,7 @@ namespace Database
             _context = context;
             _priceRepository = new PriceRepository(_context);
         }
-        /*public void BeginTransaction()
+        public void BeginTransaction()
         {
             _context.Database.BeginTransaction();
         }
@@ -45,11 +45,11 @@ namespace Database
                 _context.SaveChanges();
                 CommitTransaction();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 RollBackTransaction();
                 throw;
             }
-        }*/
+        }
     }
 }

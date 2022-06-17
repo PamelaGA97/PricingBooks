@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Database;
+using DataBase.Repositories;
 
 
 namespace Logic.Managers
@@ -15,9 +16,9 @@ namespace Logic.Managers
         }
         public List<Logic.Models.Price> GetPrices()
         {
-            List<DataBase.Models.Price> priceFromDB = _uow.PriceRepository.GetAll().Result;
+            List<Database.Models.Price> priceFromDB = _uow.PriceRepository.GetAll().Result;
             List<Logic.Models.Price> mappedPrices = new List<Logic.Models.Price>();
-            foreach (DataBase.Models.Price price in priceFromDB)
+            foreach (Database.Models.Price price in priceFromDB)
             {
                 mappedPrices.Add(new Logic.Models.Price()
                 {

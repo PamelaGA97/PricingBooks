@@ -5,11 +5,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace Database
 {
-    public class PriceDbContext : PriceDbContext
+    public class PriceDbContext : DbContext
     {
         private IConfiguration _configuration;
         public DbSet<Price> Price { get; set; }
-        public PriceDbContext (IConfiguration configuration)
+        public PriceDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
