@@ -1,5 +1,6 @@
 using Database;
 using Logic.Managers;
+using BackingServices.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +36,7 @@ namespace PricingBooks
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<PriceManager>();
+            services.AddTransient<CampaignService>();
             services.AddScoped<UnitOfWork>();
             services.AddDbContext<PriceDbContext>();
             services.AddControllers();

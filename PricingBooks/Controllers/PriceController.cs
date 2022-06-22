@@ -24,6 +24,13 @@ namespace PricingBooks.Controllers
         {
             return Ok(_priceManager.GetPrices());
         }
+
+        [HttpGet]
+        [Route("offer-price")]
+        public IActionResult GetOffer(string offer, int originalPrice)
+        {
+            return Ok(_priceManager.GetOfferPrice(offer,originalPrice));
+        }
     }
 }
 

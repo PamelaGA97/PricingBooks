@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BackingServices.Services;
 using Database;
 using DataBase.Repositories;
-
+using Logic.Models;
 
 namespace Logic.Managers
 {
     public class PriceManager
     {
-        public UnitOfWork _uow;
-        public PriceManager(UnitOfWork uow)
+        private UnitOfWork _uow;
+        private CampaignService _offerPrice;
+        public PriceManager(UnitOfWork uow, CampaignService offerPrice )
         {
             _uow = uow;
+            _offerPrice = offerPrice;
         }
         public List<Logic.Models.Price> GetPrices()
         {
@@ -30,6 +33,15 @@ namespace Logic.Managers
                 });
             }
             return mappedPrices;
+        }
+
+        public Campaign GetOfferPrice(string offer, int originalPrice)
+        {
+            BackingServices.Models.Campaign offerPriceFromService = _offerPrice.GetOfferPriceAsync( offer, originalPrice).Result;
+            return new Campaign()
+            {
+                OfferPrice = offerPriceFromService.OfferPrice,
+            };
         }
     }
 }
