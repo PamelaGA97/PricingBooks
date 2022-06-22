@@ -22,8 +22,8 @@ namespace Logic.Managers
             {
                 mappedPrices.Add(new Logic.Models.Price()
                 {
-                    Id = price.Id,
-                    IdProduct = price.IdProduct,
+                    //Id = price.Id,
+                    IdProduct = price.IdProduct, 
                     PercentOffer = price.PercentOffer,
                     Type = price.Type,
                     Year = price.Year

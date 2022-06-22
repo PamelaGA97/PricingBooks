@@ -45,7 +45,7 @@ namespace Database
                 _context.SaveChanges();
                 CommitTransaction();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 RollBackTransaction();
                 throw;
