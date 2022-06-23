@@ -10,30 +10,40 @@ namespace BackingServices.Services
 {
     public class CampaignService
     {
-        public async Task<Campaign> GetOfferPriceAsync(string offer, int originalPrice)
+        public async Task<Campaign> GetCampaignServiceAsync()
         {
             try
             {
-                Console.WriteLine("pidiendo precio de descuento");
+                Console.WriteLine("Pidiendo info de la campaña");
                 using (HttpClient client = new HttpClient())
                 {
-                    string offerPriceURL = "https://random-data-api.com/api/campaign/calculate-promotional-prices";
-                    HttpResponseMessage response = await client.GetAsync(offerPriceURL);
+                    Campaign campaign = new Campaign();
+                    string URL = "https://tec-web-ucb-service-api-dev-proy-group-c.azurewebsites.net/Campaigns/is/Active";
+
+                    HttpResponseMessage response = await client.GetAsync(URL);
                     if (response.IsSuccessStatusCode)
                     {
-                        string offerPriceBody = await response.Content.ReadAsStringAsync();
-                        Campaign offerPrice = JsonConvert.DeserializeObject<Campaign>(offerPriceBody);
-                        return offerPrice;
+                        dynamic campaignBody = await response.Content.ReadAsStringAsync();
+                        dynamic campaignRes = JsonConvert.DeserializeObject(campaignBody);
+                        foreach (var res in campaignRes)
+                        {
+                            campaign.Id = res["id"];
+                            campaign.NameCampaign = res["nameCampaign"];
+                            campaign.DescriptionCampaign = res["descriptionCampaign"];
+                            campaign.TypeCampaign = res["typeCampaign"];
+                            campaign.Enable = res["enable"];
+                        }
+                        return campaign;
                     }
                     else
                     {
-                        throw new Exception("Hubo fallas al calcular el precio de oferta");
+                        throw new Exception("HUBO FALLAS al pedir info de la campaña");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Hubo fallas al calcular el precio de oferta");
+                Console.WriteLine("HUBO FALLAS al pedir info de la campaña");
                 Console.WriteLine(ex.Message + ex.StackTrace);
                 throw;
             }

@@ -35,10 +35,10 @@ namespace PricingBooks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<PriceManager>();
+            services.AddTransient<ProductManager>();
             services.AddTransient<CampaignService>();
             services.AddScoped<UnitOfWork>();
-            services.AddDbContext<PriceDbContext>();
+            services.AddDbContext<PracticeDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(options =>
             {
