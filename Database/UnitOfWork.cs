@@ -1,26 +1,37 @@
 ﻿using System;
-using DataBase.Repositories;
+using Database.Repositories;
 
 namespace Database
 {
     public class UnitOfWork
     {
-        private PriceDbContext _context;
+        private PracticeDbContext _context;
 
-        private PriceRepository _priceRepository;
+        private ProductRepository _productRepository;
 
-        public PriceRepository PriceRepository
+        private ListProductsRepository _listProductsRepository;
+
+        public ProductRepository ProductRepository
         {
             get
             {
-                return _priceRepository;
+                return _productRepository;
             }
         }
 
-        public UnitOfWork(PriceDbContext context)
+        public ListProductsRepository ListProductRepository
+        {
+            get
+            {
+                return _listProductsRepository;
+            }
+        }
+
+        public UnitOfWork(PracticeDbContext context)
         {
             _context = context;
-            _priceRepository = new PriceRepository(_context);
+            _productRepository = new ProductRepository(_context);
+            _listProductsRepository = new ListProductsRepository(_context);
         }
         public void BeginTransaction()
         {
@@ -45,7 +56,7 @@ namespace Database
                 _context.SaveChanges();
                 CommitTransaction();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 RollBackTransaction();
                 throw;
